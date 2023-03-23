@@ -8,7 +8,8 @@ using TMPro;
 
 public class VideoAndQuestion : MonoBehaviour
 {
-    
+    public TMP_Text Overlay_Text;
+
     public TMP_Text OBJ_Option_1_Text;
     public TMP_Text OBJ_Option_2_Text;
     public TMP_Text OBJ_Option_3_Text;
@@ -18,12 +19,16 @@ public class VideoAndQuestion : MonoBehaviour
     public string Option_2_Text;
     public string Option_3_Text;
     public string Option_4_Text;
+     
+
+    public GameObject VideoPanel;
+    public GameObject VideoController;
+
+    public string Video_1;
+    public string Video_2;
+    public string Video_3;
 
 
-    private VideoClip CurrentVideo;
-    public VideoClip Video_Path_1;
-    public VideoClip Video_Path_2;
-    public VideoClip Video_Path_3;
 
     public GameObject Overlay;
 
@@ -41,33 +46,78 @@ public class VideoAndQuestion : MonoBehaviour
     public Button Correct_Option_3;
     public Button Correct_Option;
 
-    private int QuestionNum;
+    private int QuestionNum = 1;
 
     // Start is called before the first frame update
     void Start()
     {
+        VideoPanel.gameObject.SetActive(false);
+        StartButton.gameObject.SetActive(false);
 
-        if(QuestionNum == 1)
+        if (QuestionNum == 1)
         {
+            StartCoroutine(StartOverlay());
             Correct_Option = Correct_Option_1;
-            Question_1(Correct_Option);
-        }else if(QuestionNum == 2)
+            Question_1(Correct_Option_1);
+            VideoController.GetComponent<VideoPlayer>().url = Video_1;
+        }
+        else if (QuestionNum == 2)
         {
+            StartCoroutine(Question2Overlay());
             Correct_Option = Correct_Option_2;
-            Question_2(Correct_Option);
+            Question_1(Correct_Option_2);
         }
         else if (QuestionNum == 3)
         {
             Correct_Option = Correct_Option_3;
-            Question_3(Correct_Option);
+            // Question_3(Correct_Option);
         }
+    }
+    IEnumerator StartOverlay()
+    {
+        Overlay_Text.text = "Welcome to Digital Detectives! Let's test you investigative skills.";
 
-        Button nxtBtn = NextQuestion.GetComponent<Button>();
-        nxtBtn.onClick.AddListener(NextQuestionTask);
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
+        Overlay_Text.text = "Watch the next videos! Answer the question correctly";
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
+
+        Overlay_Text.text = "Good Luck! Press Start when ready!";
+        StartButton.gameObject.SetActive(true);
+    }
+
+    IEnumerator Question2Overlay()
+    {
+        Overlay_Text.text = "Nice! Here is the Second Video";
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
+
+        StartButton.gameObject.SetActive(true);
+    }
+
+    void StartButtonTask()
+    {
+        Debug.Log("Start Game!");
+
+        StartButton.gameObject.SetActive(false);
+        Overlay.gameObject.SetActive(false);
+
+        Option_1.gameObject.SetActive(true);
+        Option_2.gameObject.SetActive(true);
+        Option_3.gameObject.SetActive(true);
+        Option_4.gameObject.SetActive(true);
+
+        VideoPanel.gameObject.SetActive(true);
+        VideoController.GetComponent<VideoPlayer>().Play();
+        //PlayVideo(CurrentVideo);
+
     }
 
     void Question_1(Button _correctOption) {
-        QuestionNum = 1;
+
         Option_1.gameObject.SetActive(false);
         Option_2.gameObject.SetActive(false);
         Option_3.gameObject.SetActive(false);
@@ -86,27 +136,21 @@ public class VideoAndQuestion : MonoBehaviour
         Button crctBtn = _correctOption.GetComponent<Button>();
         crctBtn.onClick.AddListener(CorrectOptionTask);
 
-        void StartButtonTask()
-        {
-            Debug.Log("Start Game!");
-
-            StartButton.gameObject.SetActive(false);
-            Overlay.gameObject.SetActive(false);
-
-            Option_1.gameObject.SetActive(true);
-            Option_2.gameObject.SetActive(true);
-            Option_3.gameObject.SetActive(true);
-            Option_4.gameObject.SetActive(true);
-
-            CurrentVideo = Video_Path_1;
-            PlayVideo(CurrentVideo);
-
-        }
         void CorrectOptionTask()
         {
             Overlay.gameObject.SetActive(true);
-
+            Overlay_Text.text = "Good Job! that's the correct answer!";
             NextQuestion.gameObject.SetActive(true);
+
+            Button nxtBtn = NextQuestion.GetComponent<Button>();
+            nxtBtn.onClick.AddListener(NextQuestionTask);
+        }
+
+        void NextQuestionTask()
+        {
+            QuestionNum++;
+            Overlay_Text.text = "Good Job! that's the correct answer!";
+            Start();
         }
     }
     // Update is called once per frame
@@ -114,53 +158,4 @@ public class VideoAndQuestion : MonoBehaviour
     {
         
     }
-    void NextQuestionTask()
-    {
-
-    }
-    void PlayVideo(VideoClip _currentVideo)
-    {
-        // Will attach a VideoPlayer to the main camera.
-        GameObject camera = GameObject.Find("Main Camera");
-
-        // VideoPlayer automatically targets the camera backplane when it is added
-        // to a camera object, no need to change videoPlayer.targetCamera.
-        var videoPlayer = camera.AddComponent<UnityEngine.Video.VideoPlayer>();
-
-        // Play on awake defaults to true. Set it to false to avoid the url set
-        // below to auto-start playback since we're in Start().
-        videoPlayer.playOnAwake = false;
-
-        // By default, VideoPlayers added to a camera will use the far plane.
-        // Let's target the near plane instead.
-        videoPlayer.renderMode = UnityEngine.Video.VideoRenderMode.CameraNearPlane;
-
-        // This will cause our Scene to be visible through the video being played.
-        videoPlayer.targetCameraAlpha = 0.5F;
-
-        // Set the video to play. URL supports local absolute or relative paths.
-        // Here, using absolute.
-        videoPlayer.url = /*_currentVideo.ToString() + ".mp4"*/ /*"pexels-rodnae-productions-6124799"*/;
-
-        // Skip the first 100 frames.
-        videoPlayer.frame = 100;
-
-        // Restart from beginning when done.
-        videoPlayer.isLooping = false;
-
-        // Each time we reach the end, we slow down the playback by a factor of 10.
-        videoPlayer.loopPointReached += EndReached;
-
-        // Start playback. This means the VideoPlayer may have to prepare (reserve
-        // resources, pre-load a few frames, etc.). To better control the delays
-        // associated with this preparation one can use videoPlayer.Prepare() along with
-        // its prepareCompleted event.
-
-        videoPlayer.Play();
-    }
-    void EndReached(UnityEngine.Video.VideoPlayer vp)
-    {
-        vp.playbackSpeed = vp.playbackSpeed / 10.0F;
-    }
-
 }
