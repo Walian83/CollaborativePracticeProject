@@ -151,6 +151,9 @@ public class VideoAndQuestion : MonoBehaviour
         //Enable UI
         Overlay.gameObject.SetActive(true);
         Debug.Log("Correct Option"+QuestionNum);
+        //Updates the score
+        ScoreScript.scoreValue += 1;
+
         switch (QuestionNum)
         {
             case 1:
