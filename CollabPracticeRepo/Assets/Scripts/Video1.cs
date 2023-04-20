@@ -72,7 +72,7 @@ IEnumerator StartOverlay()
     Overlay_Text.text = "Welcome to Digital Detectives! Let's Test Your Investigative Skills.";
     //yield on a new YieldInstruction that waits for 5 seconds.
     yield return new WaitForSeconds(5);
-    Overlay_Text.text = "Watch the Next Videos! Answer the Question Correctly";
+    Overlay_Text.text = "Watch the Next Video! Answer the Question Correctly";
     //yield on a new YieldInstruction that waits for 5 seconds.
     yield return new WaitForSeconds(5);
     Overlay_Text.text = "Good Luck! Press Start When Ready!";
