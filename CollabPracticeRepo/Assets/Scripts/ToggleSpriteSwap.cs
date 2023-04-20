@@ -10,7 +10,7 @@ public class ToggleSpriteSwap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        targetToggle.toggleTransition = Toggle.ToggleTransition.None;
+        targetToggle.toggleTransition = Toggle.ToggleTransition.Fade;
         targetToggle.onValueChanged.AddListener(OnTargetToggleValueChanged);
     }
 
