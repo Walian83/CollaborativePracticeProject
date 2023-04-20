@@ -136,7 +136,7 @@ public class Video3 : MonoBehaviour
         Option_3.interactable = false;
         Option_4.interactable = false;
         //Change Text
-        Overlay_Text.text = "Wrong Answer! Here is a Clue! 'CLUE HERE' ";
+        Overlay_Text.text = "Wrong Answer! Here is a Clue! What are the Detectives Looking At? ";
         //Listen for OK Button Press
         Button okBtn = OkButton.GetComponent<Button>();
         okBtn.onClick.AddListener(HelpTask);
