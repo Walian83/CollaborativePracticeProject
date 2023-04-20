@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
-public class SoundScript : MonoBehaviour
+public class VideoSoundScript : MonoBehaviour
 {
     public Toggle soundToggle;
-    public AudioSource audioSource;
+    public VideoPlayer videoPlayer;
 
     void Start()
     {
@@ -17,11 +18,11 @@ public class SoundScript : MonoBehaviour
     {
         if (soundToggle.isOn == true)
         {
-            audioSource.mute = false;
+            videoPlayer.SetDirectAudioMute(0, false);
         }
         else if (soundToggle.isOn == false)
         {
-            audioSource.mute = true;
+            videoPlayer.SetDirectAudioMute(0, true);
         }
     }
 }

@@ -113,6 +113,10 @@ public class Video2 : MonoBehaviour
         VideoController.GetComponent<VideoPlayer>().Pause();
         //Enable UI
         Overlay.gameObject.SetActive(true);
+        Option_1.interactable = false;
+        Option_2.interactable = false;
+        Option_3.interactable = false;
+        Option_4.interactable = false;
         //Updates the score
         ScoreScript.scoreValue += 1;
         Debug.Log("Correct Option - Score: " + ScoreScript.scoreValue);
@@ -129,7 +133,10 @@ public class Video2 : MonoBehaviour
         //Enable UI
         Overlay.gameObject.SetActive(true);
         OkButton.gameObject.SetActive(true);
-
+        Option_1.interactable = false;
+        Option_2.interactable = false;
+        Option_3.interactable = false;
+        Option_4.interactable = false;
         //Change Text
         Overlay_Text.text = "Wrong Answer! Here is a Clue! Where do you think this video was first posted?";
         //Listen for OK Button Press
@@ -140,6 +147,10 @@ public class Video2 : MonoBehaviour
     {
         Overlay.gameObject.SetActive(false);
         OkButton.gameObject.SetActive(false);
+        Option_1.interactable = true;
+        Option_2.interactable = true;
+        Option_3.interactable = true;
+        Option_4.interactable = true;
     }
     void NextQuestion()
     {
