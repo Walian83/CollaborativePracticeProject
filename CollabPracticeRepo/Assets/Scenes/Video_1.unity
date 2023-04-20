@@ -1613,8 +1613,8 @@ MonoBehaviour:
   Option_4_Text: DIGITAL FOOTPRINT
   VideoPanel: {fileID: 611896568}
   VideoController: {fileID: 842476262}
-  Video_1: https://joaocodices.github.io/CollabRepo/Video_1.mp4
-  Video_1_Help: https://joaocodices.github.io/CollabRepo/Video_1_Help.mp4
+  Video_1: Assets/Videos/Video_1.mp4
+  Video_1_Help: Assets/Videos/Video_1_Help.mp4
   Overlay: {fileID: 557925002}
   Option_1: {fileID: 790539958}
   Option_2: {fileID: 1587241700}

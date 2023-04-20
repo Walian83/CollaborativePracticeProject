@@ -1761,7 +1761,7 @@ MonoBehaviour:
   Option_4_Text: DIGITAL FOOTPRINT
   VideoPanel: {fileID: 611896568}
   VideoController: {fileID: 842476262}
-  Video_2: https://joaocodices.github.io/CollabRepo/Video_2.mp4
+  Video_2: Assets/Videos/Video_2.mp4
   Overlay: {fileID: 557925002}
   Option_1: {fileID: 790539958}
   Option_2: {fileID: 1587241700}
