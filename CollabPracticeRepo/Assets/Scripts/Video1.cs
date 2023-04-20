@@ -115,6 +115,10 @@ void CorrectOptionTask()
     VideoController.GetComponent<VideoPlayer>().Pause();
     //Enable UI
     Overlay.gameObject.SetActive(true);
+    Option_1.interactable = false;
+    Option_2.interactable = false;
+    Option_3.interactable = false;
+    Option_4.interactable = false;
     //Updates the score
     ScoreScript.scoreValue += 1;
     Debug.Log("Correct Option - Score: " + ScoreScript.scoreValue);
@@ -131,7 +135,10 @@ void WrongButtonTask()
     //Enable UI
     Overlay.gameObject.SetActive(true);
     OkButton.gameObject.SetActive(true);
-
+    Option_1.interactable = false;
+    Option_2.interactable = false;
+    Option_3.interactable = false;
+    Option_4.interactable = false;
     //Change Text
     Overlay_Text.text = "Wrong Answer! Here is a Clue!";
     //Listen for OK Button Press
@@ -142,6 +149,10 @@ void HelpTask()
 {
     Overlay.gameObject.SetActive(false);
     OkButton.gameObject.SetActive(false);
+    Option_1.interactable = true;
+    Option_2.interactable = true;
+    Option_3.interactable = true;
+    Option_4.interactable = true;
 
     VideoController.GetComponent<VideoPlayer>().url = Video_1_Help;
     VideoController.GetComponent<VideoPlayer>().Play();
