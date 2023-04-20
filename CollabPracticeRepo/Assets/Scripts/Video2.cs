@@ -6,8 +6,7 @@ using UnityEngine.Video;
 using UnityEngine.UI;
 using TMPro;
 
-
-public class VideoAndQuestion : MonoBehaviour
+public class Video2 : MonoBehaviour
 {
     public TMP_Text Overlay_Text;
 
@@ -20,13 +19,12 @@ public class VideoAndQuestion : MonoBehaviour
     public string Option_2_Text;
     public string Option_3_Text;
     public string Option_4_Text;
-     
+
 
     public GameObject VideoPanel;
     public GameObject VideoController;
 
-    public string Video_1;
-    public string Video_1_Help;
+    public string Video_2;
 
     public GameObject Overlay;
 
@@ -54,7 +52,7 @@ public class VideoAndQuestion : MonoBehaviour
         OBJ_Option_3_Text.text = Option_3_Text;
         OBJ_Option_4_Text.text = Option_4_Text;
 
-        VideoController.GetComponent<VideoPlayer>().url = Video_1;
+        VideoController.GetComponent<VideoPlayer>().url = Video_2;
         StartCoroutine(StartOverlay());
         Question_1(Correct_Option_1);
 
@@ -69,13 +67,13 @@ public class VideoAndQuestion : MonoBehaviour
         OkButton.gameObject.SetActive(false);
         NextButton.gameObject.SetActive(false);
 
-        Overlay_Text.text = "Welcome to Digital Detectives! Let's test you investigative skills.";
+        Overlay_Text.text = "Here is Video 2";
         //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(1);
-        Overlay_Text.text = "Watch the next videos! Answer the question correctly";
+        yield return new WaitForSeconds(5);
+        Overlay_Text.text = "Are You Ready?";
         //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(1);
-        Overlay_Text.text = "Good Luck! Press Start when ready!";
+        yield return new WaitForSeconds(5);
+        Overlay_Text.text = "Good Luck! Press Start to Play Video!";
         StartButton.gameObject.SetActive(true);
         Button strtBtn = StartButton.GetComponent<Button>();
         strtBtn.onClick.AddListener(StartVideo);
@@ -95,7 +93,7 @@ public class VideoAndQuestion : MonoBehaviour
         VideoPanel.gameObject.SetActive(true);
         VideoController.GetComponent<VideoPlayer>().Play();
     }
-    bool Question_1(Button _correctOption) 
+    bool Question_1(Button _correctOption)
     {
         Debug.Log(_correctOption);
         Button crctBtn = _correctOption.GetComponent<Button>();
@@ -103,9 +101,9 @@ public class VideoAndQuestion : MonoBehaviour
         //Wrong Options
         Button wrgBtn1 = Option_1.GetComponent<Button>();
         wrgBtn1.onClick.AddListener(WrongButtonTask);
-        Button wrgBtn2 = Option_3.GetComponent<Button>();
+        Button wrgBtn2 = Option_2.GetComponent<Button>();
         wrgBtn2.onClick.AddListener(WrongButtonTask);
-        Button wrgBtn3 = Option_4.GetComponent<Button>();
+        Button wrgBtn3 = Option_3.GetComponent<Button>();
         wrgBtn3.onClick.AddListener(WrongButtonTask);
         return true;
     }
@@ -122,7 +120,7 @@ public class VideoAndQuestion : MonoBehaviour
         //Listen for Next Button Press
         NextButton.gameObject.SetActive(true);
         Button nxtBtn = NextButton.GetComponent<Button>();
-        nxtBtn.onClick.AddListener(NextQuestion);      
+        nxtBtn.onClick.AddListener(NextQuestion);
     }
     void WrongButtonTask()
     {
@@ -133,7 +131,7 @@ public class VideoAndQuestion : MonoBehaviour
         OkButton.gameObject.SetActive(true);
 
         //Change Text
-        Overlay_Text.text = "Wrong Answer! Here is a Clue!";
+        Overlay_Text.text = "Wrong Answer! Here is a Clue! Where do you think this video was first posted?";
         //Listen for OK Button Press
         Button okBtn = OkButton.GetComponent<Button>();
         okBtn.onClick.AddListener(HelpTask);
@@ -142,12 +140,9 @@ public class VideoAndQuestion : MonoBehaviour
     {
         Overlay.gameObject.SetActive(false);
         OkButton.gameObject.SetActive(false);
-
-        VideoController.GetComponent<VideoPlayer>().url = Video_1_Help;
-        VideoController.GetComponent<VideoPlayer>().Play();
     }
     void NextQuestion()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 }

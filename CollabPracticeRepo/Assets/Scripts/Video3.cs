@@ -6,8 +6,7 @@ using UnityEngine.Video;
 using UnityEngine.UI;
 using TMPro;
 
-
-public class VideoAndQuestion : MonoBehaviour
+public class Video3 : MonoBehaviour
 {
     public TMP_Text Overlay_Text;
 
@@ -20,13 +19,12 @@ public class VideoAndQuestion : MonoBehaviour
     public string Option_2_Text;
     public string Option_3_Text;
     public string Option_4_Text;
-     
+
 
     public GameObject VideoPanel;
     public GameObject VideoController;
 
-    public string Video_1;
-    public string Video_1_Help;
+    public string Video_3;
 
     public GameObject Overlay;
 
@@ -39,6 +37,7 @@ public class VideoAndQuestion : MonoBehaviour
     public Button StartButton;
     public Button NextButton;
     public Button OkButton;
+    public Button MainMenuButton;
 
     public Button Correct_Option_1;
 
@@ -48,13 +47,13 @@ public class VideoAndQuestion : MonoBehaviour
     {
         VideoPanel.gameObject.SetActive(false);
         StartButton.gameObject.SetActive(false);
-
+        MainMenuButton.gameObject.SetActive(false);
         OBJ_Option_1_Text.text = Option_1_Text;
         OBJ_Option_2_Text.text = Option_2_Text;
         OBJ_Option_3_Text.text = Option_3_Text;
         OBJ_Option_4_Text.text = Option_4_Text;
 
-        VideoController.GetComponent<VideoPlayer>().url = Video_1;
+        VideoController.GetComponent<VideoPlayer>().url = Video_3;
         StartCoroutine(StartOverlay());
         Question_1(Correct_Option_1);
 
@@ -69,13 +68,10 @@ public class VideoAndQuestion : MonoBehaviour
         OkButton.gameObject.SetActive(false);
         NextButton.gameObject.SetActive(false);
 
-        Overlay_Text.text = "Welcome to Digital Detectives! Let's test you investigative skills.";
+        Overlay_Text.text = "Here Is the Last Video!";
         //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(1);
-        Overlay_Text.text = "Watch the next videos! Answer the question correctly";
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(1);
-        Overlay_Text.text = "Good Luck! Press Start when ready!";
+        yield return new WaitForSeconds(5);
+        Overlay_Text.text = "Good Luck! Press Start When Ready!";
         StartButton.gameObject.SetActive(true);
         Button strtBtn = StartButton.GetComponent<Button>();
         strtBtn.onClick.AddListener(StartVideo);
@@ -95,13 +91,13 @@ public class VideoAndQuestion : MonoBehaviour
         VideoPanel.gameObject.SetActive(true);
         VideoController.GetComponent<VideoPlayer>().Play();
     }
-    bool Question_1(Button _correctOption) 
+    bool Question_1(Button _correctOption)
     {
         Debug.Log(_correctOption);
         Button crctBtn = _correctOption.GetComponent<Button>();
         crctBtn.onClick.AddListener(CorrectOptionTask);
         //Wrong Options
-        Button wrgBtn1 = Option_1.GetComponent<Button>();
+        Button wrgBtn1 = Option_2.GetComponent<Button>();
         wrgBtn1.onClick.AddListener(WrongButtonTask);
         Button wrgBtn2 = Option_3.GetComponent<Button>();
         wrgBtn2.onClick.AddListener(WrongButtonTask);
@@ -118,11 +114,11 @@ public class VideoAndQuestion : MonoBehaviour
         //Updates the score
         ScoreScript.scoreValue += 1;
         Debug.Log("Correct Option - Score: " + ScoreScript.scoreValue);
-        Overlay_Text.text = "Good Job! that's the correct answer!";
+        Overlay_Text.text = "Good Job! That's the Correct Answer!";
         //Listen for Next Button Press
         NextButton.gameObject.SetActive(true);
         Button nxtBtn = NextButton.GetComponent<Button>();
-        nxtBtn.onClick.AddListener(NextQuestion);      
+        nxtBtn.onClick.AddListener(NextQuestion);
     }
     void WrongButtonTask()
     {
@@ -133,7 +129,7 @@ public class VideoAndQuestion : MonoBehaviour
         OkButton.gameObject.SetActive(true);
 
         //Change Text
-        Overlay_Text.text = "Wrong Answer! Here is a Clue!";
+        Overlay_Text.text = "Wrong Answer! Here is a Clue! 'CLUE HERE' ";
         //Listen for OK Button Press
         Button okBtn = OkButton.GetComponent<Button>();
         okBtn.onClick.AddListener(HelpTask);
@@ -143,11 +139,16 @@ public class VideoAndQuestion : MonoBehaviour
         Overlay.gameObject.SetActive(false);
         OkButton.gameObject.SetActive(false);
 
-        VideoController.GetComponent<VideoPlayer>().url = Video_1_Help;
-        VideoController.GetComponent<VideoPlayer>().Play();
     }
     void NextQuestion()
     {
-        SceneManager.LoadScene(2);
+        Overlay_Text.text = "Thank You for Participating! Your Score was: " + ScoreScript.scoreValue + "/3";
+        MainMenuButton.gameObject.SetActive(true);
+        Button backBtn = MainMenuButton.GetComponent<Button>();
+        backBtn.onClick.AddListener(BacktoMainMenu);
+    }
+    void BacktoMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
