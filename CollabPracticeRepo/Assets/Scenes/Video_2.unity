@@ -1052,11 +1052,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 652328944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cf2a0e33d6824746a91aa8b920dae4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e00271a81fcd2444b3b51b1d4eb3d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   soundToggle: {fileID: 652328947}
-  videoController: {fileID: 842476267}
+  videoPlayer: {fileID: 842476267}
 --- !u!1 &664672499
 GameObject:
   m_ObjectHideFlags: 0
